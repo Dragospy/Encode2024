@@ -1,3 +1,24 @@
 .App {
   text-align: center;
 }
+
+.searchBar {
+  border: 2px solid black;
+  border-radius: 16px;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.listing {
+  border: 2px solid black;
+  border-radius: 16px;
+  width: 250px;
+  padding: 1rem;
+}
+
+.listingContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}

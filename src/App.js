@@ -1,19 +1,47 @@
 import './App.css';
+import React from 'react';
+import logo from './logo.svg'
 
-function Item() {
+function SearchBar() {
   return (
-    <div style={{border: "2px solid black", "border-radius": "4px", maxWidth: "60rem"}}>
-      <h1>Item Name</h1>
-      <p>Item description</p>
+    <input className='searchBar'></input>
+  )
+}
+
+function Listing({ listing }) {
+  return (
+    <div className="listing">
+      <div className="ListingName">{listing.name}</div>
+      <div className='listingPrice'>{listing.price}</div>
+    </div>
+  );
+}
+
+function ListingContainer({ children }) {
+  return (
+    <div className='listingContainer'>
+      {children}
     </div>
   );
 }
 
 function App() {
+  const exampleListing = { image: { logo }, imageAlt: "React logo", name: "Example", price: "0.02 ETH" }
+
   return (
     <div className="App">
-      <h1>Hello Wordl!</h1>
-      <Item />
+      <SearchBar />
+      <ListingContainer>
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+        <Listing listing={exampleListing} />
+      </ListingContainer>
     </div>
   );
 }

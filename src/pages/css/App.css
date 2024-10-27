@@ -19,11 +19,12 @@
   padding: 1rem;
   border-radius: 16px;
   background-color: white;
-  transition: background-color 250ms;
+  transition: background-color 250ms ease, transform 250ms ease;
 }
 
 .listing:hover {
   background-color: #EEE;
+  transform: scale(1.1);
 }
 
 .listingImage {

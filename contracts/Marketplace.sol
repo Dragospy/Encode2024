@@ -1,31 +1,47 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.24;
 
-contract IncrementDecrement{
-    uint256 value;
+contract MarketPlace{
+
+    uint256 listingCount = 1;
+
+    struct listing {
+        address ownerWallet;
+        string name;
+        string price;
+        uint256 id;
+    }
+
+
+    mapping (uint256 => listing) public marketListings;
 
     event Increment(string message);
     event Decrement(string message);
 
-    function increment() public {
-        value++;
+    function addListing(address owner, string memory name, string memory price) public {
+        marketListings[listingCount] = listing(owner, name, price, listingCount);
 
-        emit Increment("value incremented by 1");
+        listingCount++;
 
+        emit Increment("Created a new listing");
     }
 
-    function decrement() public {
-        value--;
+    function removeListing(uint256 listingID) public {
+        
+        delete marketListings[listingID];
 
-        emit Decrement("value decremented by 1");
+        emit Decrement("Removed listing");
     }
-    /*
-    function reset() public {
-        value = 0;
+    
+    function getListingCount() public view returns (uint256){
+        return listingCount;
     }
-    */
 
-    function getValue() public view returns (uint256) {
-        return value;
+    function getListings() public view returns (listing[] memory) {
+        listing[] memory ret = new listing[](listingCount);
+        for (uint i = 0; i < listingCount; i++) {
+            ret[i] = marketListings[i];
+        }
+        return ret;
     }
 }

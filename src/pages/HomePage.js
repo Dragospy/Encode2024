@@ -79,6 +79,7 @@ function ListingContainer({ children }) {
 
 const GetMarketListings = async () => {
   try {
+    if (window.ethereum) {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const Signer = await provider.getSigner();
 
@@ -90,24 +91,68 @@ const GetMarketListings = async () => {
       //console.log('Listings Array :', listings[1]);
       
       return listings
+    }
+    else {
+      console.error(
+        'MetaMask not found. Please install MetaMask to use this application.',
+      );
+    }
   } catch (error) {
     console.error("This is what happened")
     console.log(error);
     alert(error);
   }
 };
+
+
 function HomePage()  {
   const [listings, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [address, setAddress] = useState(null);
+
+  useEffect(() => {
+    if (window.ethereum && window.ethereum.selectedAddress) {
+      // MetaMask is connected
+      const selectedAddress = window.ethereum.selectedAddress;
+      console.log(`Connected to MetaMask with address: ${selectedAddress}`);
+    } else {
+      // MetaMask is not connected
+      console.log('MetaMask is not connected');
+    }
+  }, []);
+
+  async function connectToMetaMask() {
+    try {
+      // Check if MetaMask is installed
+      if (window.ethereum) {
+        // Request account access
+        const Accounts = await window.ethereum.request({
+          method: 'eth_requestAccounts',
+        });
+
+        setAddress(Accounts[0]);
+        console.log('Connected to MetaMask!', Accounts);
+      } else {
+        console.error(
+          'MetaMask not found. Please install MetaMask to use this application.',
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   useEffect(() => {
     async function fetchData(){
 
       try {
-        const listings = await GetMarketListings();
-        setData(listings);
-        setLoading(false);
+        if (address){
+          const listings = await GetMarketListings();
+          setData(listings);
+          setLoading(false);
+        }
+
       }
       catch (error){
         setError(error);
@@ -121,6 +166,14 @@ function HomePage()  {
   const generateRandomPrice = () => {
     return (Math.random() * 10).toFixed(3);
   };
+
+  if (!address){
+    return (<div className="connectBtns">
+        <button className="btn" onClick={connectToMetaMask}>
+          Connect To MetaMask
+        </button>
+      </div>);
+  }
 
   if (loading) {
     return <div> Loading...</div>

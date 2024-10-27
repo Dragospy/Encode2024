@@ -1,19 +1,37 @@
-.App {
-  text-align: center;
-}
-
 .searchBar {
   border: 2px solid black;
   border-radius: 16px;
   width: 100%;
-  margin-bottom: 1rem;
+  min-width: 0;
+  flex: 1;
+  height: 0.5rem;
+  padding: 0.5rem;
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 2rem;
 }
 
 .listing {
-  border: 2px solid black;
-  border-radius: 16px;
-  width: 250px;
   padding: 1rem;
+  border-radius: 16px;
+  background-color: white;
+  transition: background-color 250ms;
+}
+
+.listing:hover {
+  background-color: #EEE;
+}
+
+.listingImage {
+  width: 250px;
+  height: 250px;
+  background-color: #BAD2D6;
+  border-radius: 16px;
+  margin-bottom: 0.5rem;
 }
 
 .listingContainer {
@@ -21,4 +39,15 @@
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: center;
+}
+
+.largeText {
+  font-size: 24px;
+}
+
+select {
+  border: 2px solid black;
+  border-radius: 16px;
+  padding: 4px 8px;
+  background-color: #BAD2D6;
 }

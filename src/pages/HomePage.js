@@ -8,6 +8,7 @@ import { wait } from '@testing-library/user-event/dist/utils';
 const ethers = require("ethers");
 const contractAddress = "0xC56a93C923e2105830B450c311F4061D021E4A06";
 
+/*
 function sleep(milliseconds) {
   const date = Date.now();
   let currentDate = null;
@@ -15,6 +16,7 @@ function sleep(milliseconds) {
     currentDate = Date.now();
   } while (currentDate - date < milliseconds);
 }
+*/
 
 
 function Dropdown() {
@@ -210,4 +212,3 @@ function HomePage()  {
 }
 
 export default HomePage;
-
